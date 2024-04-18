@@ -1,5 +1,3 @@
-from flask import Flask, request, jsonify
-import joblib
 import nltk
 import re
 from nltk.corpus import stopwords

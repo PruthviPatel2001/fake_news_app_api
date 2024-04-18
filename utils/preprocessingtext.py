@@ -1,23 +1,22 @@
 import nltk
 import re
-from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+import os
 
 stemmer = PorterStemmer()
-stop_words = set(stopwords.words('english'))
+
+
+stopwords_path = os.path.join(os.path.dirname(__file__), '..', 'nltk_data', 'stopwords.txt')
+
+with open(stopwords_path, 'r') as file:
+    stop_words = set(file.read().splitlines())
 
 def preprocess_text(text):
-    # Convert to lowercase
     text = text.lower()
-    # Remove special characters and numbers
     text = re.sub(r'[^a-zA-Z\s]', '', text)
-    # Tokenize the text
     tokens = nltk.word_tokenize(text)
-    # Remove stop words
     tokens = [word for word in tokens if word not in stop_words]
-    # Stem each word
     tokens = [stemmer.stem(word) for word in tokens]
-    # Join the tokens back into a single string
     processed_text = ' '.join(tokens)
     return processed_text
 

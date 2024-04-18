@@ -1,10 +1,14 @@
 from flask import Blueprint, jsonify
 import random
 import pandas as pd
+import os
 
 sample_news_bp = Blueprint('sample_news_bp', __name__)
+SAMPLE_DATA_DIR = os.path.join(os.getcwd(), 'sampleData')
 
-sample_news_df = pd.read_csv('/Users/pruthvipatel/Documents/projects/FakeNewsApp_API/sampleData/news_sample.csv')
+sample_data_path = os.path.join(SAMPLE_DATA_DIR, 'news_sample.csv')
+
+sample_news_df = pd.read_csv(sample_data_path)
 
 @sample_news_bp.route('/get-sample-news', methods=['GET'])
 def get_sample_news():
